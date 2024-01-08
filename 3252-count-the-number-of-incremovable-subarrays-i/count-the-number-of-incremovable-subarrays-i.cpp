@@ -1,36 +1,18 @@
 class Solution {
 public:
     int incremovableSubarrayCount(vector<int>& nums) {
-        int cnt = 0;
-        int n = nums.size();
-
-        for (int i = 0; i < n; i++) {
-            for (int j = i; j < n; j++) {
-                bool flag = true;
-                int last = -1;
-
-                for (int k = 0; k < i; k++) {
-                    if (last >= nums[k]) {
-                        flag = false;
-                        break;
-                    }
-                    last = nums[k];
-                }
-
-                for (int k = j + 1; k < n; k++) {
-                    if (last >= nums[k]) {
-                        flag = false;
-                        break;
-                    }
-                    last = nums[k];
-                }
-
-                if (flag) {
-                    cnt++;
-                }
+    int ans = 0;
+    for(int i = 0; i < nums.size(); ++i){
+        for(int j = i; j < nums.size(); ++j){
+            int last = -1, flag = 1;
+            for(int k = 0; k < nums.size(); ++k){
+                if(k >= i && k <= j) continue;
+                if(last >= nums[k]){ flag = 0; break; }
+                last = nums[k];
             }
+            if(flag) ans++;
         }
-
-        return cnt;
     }
+    return ans;
+}
 };
